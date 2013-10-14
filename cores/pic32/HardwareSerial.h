@@ -84,6 +84,7 @@ class HardwareSerial : public Stream
 {
 	private:
 		p32_uart *		uart;		//uart register map
+        isrFunc         isr;        // the ISR routine to use
 		uint8_t			irq;		//base IRQ number for the UART
 		uint8_t			vec;		//interrupt vector for the UART
 		uint8_t			ipl;		//interrupt priority level
@@ -103,9 +104,9 @@ class HardwareSerial : public Stream
 
 	public:
 #if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__)
-		HardwareSerial(p32_uart * uartP, int irq, int vec, int ipl, int spl, int pinT, int pinR, ppsFunctionType ppsT, ppsFunctionType ppsR);
+		HardwareSerial(p32_uart * uartP, int irq, int vec, int ipl, int spl, isrFunc isrHandler, int pinT, int pinR, ppsFunctionType ppsT, ppsFunctionType ppsR);
 #else
-		HardwareSerial(p32_uart * uartP, int irq, int vec, int ipl, int spl);
+		HardwareSerial(p32_uart * uartP, int irq, int vec, int ipl, int spl, isrFunc isrHandler);
 #endif
 
 		void			doSerialInt(void);
@@ -116,6 +117,7 @@ class HardwareSerial : public Stream
 		virtual int		peek();
 		virtual int		read(void);
 		virtual void	flush(void);
+		virtual void	purge(void);
 		virtual	void	write(uint8_t);
 		using	Print::write; // pull in write(str) and write(buf, size) from Print
 };
@@ -139,6 +141,7 @@ class USBSerial : public Stream
 		virtual	void	write(uint8_t);
 		virtual void	write(const char *str);
 		virtual void	write(const uint8_t *buffer, size_t size);
+        operator        int();
 
 		using	Print::write; // pull in write(str) and write(buf, size) from Print
 };

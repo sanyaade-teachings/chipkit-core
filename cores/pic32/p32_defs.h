@@ -121,6 +121,7 @@ typedef struct {
 */
 #define	_UARTSTA_URXEN	12
 #define	_UARTSTA_UTXEN	10
+#define _UARTSTA_UTXBF  9
 #define	_UARTSTA_TMRT	8
 
 /* Structure for the registers of a PIC32 SPI controller
@@ -135,6 +136,8 @@ typedef struct {
 /*	SPIxCON - Define bits in the SPI control port
 */
 #define _SPICON_ON		15
+#define _SPICON_MODE32		11
+#define _SPICON_MODE16		10
 #define _SPICON_SMP		9
 #define	_SPICON_CKE		8
 #define _SPICON_CKP		6
@@ -494,8 +497,8 @@ typedef enum {
     PPS_IN_U1CTS	= (20 + _PPS_SET_B + _PPS_INPUT_BIT),
     PPS_IN_U2RX		= (21 + _PPS_SET_B + _PPS_INPUT_BIT),
     PPS_IN_U2CTS	= (22 + _PPS_SET_C + _PPS_INPUT_BIT),
-    PPS_IN_SDI1		= (31 + _PPS_SET_B + _PPS_INPUT_BIT),
-    PPS_IN_SS1		= (32 + _PPS_SET_A + _PPS_INPUT_BIT),
+    PPS_IN_SDI1		= (32 + _PPS_SET_B + _PPS_INPUT_BIT),
+    PPS_IN_SS1		= (33 + _PPS_SET_A + _PPS_INPUT_BIT),
     PPS_IN_SDI2		= (35 + _PPS_SET_C + _PPS_INPUT_BIT),
     PPS_IN_SS2		= (36 + _PPS_SET_D + _PPS_INPUT_BIT),
     PPS_IN_REFCLKI	= (45 + _PPS_SET_A + _PPS_INPUT_BIT),
